@@ -20,7 +20,7 @@ namespace BullsNCows.Activities
             
             SetContentView(Resource.Layout.activity_main);
 
-            gameManager = new GameManager(this);
+            gameManager = GameManager.getInstance(this);
 
             btnInstructions = FindViewById<Button>(Resource.Id.btnInstructions);
             btnInstructions.Click += BtnInstructions_Click;
