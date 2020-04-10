@@ -10,7 +10,7 @@
     <TemplateGuid>{122416d6-6b49-4ee2-a1e8-b825f31c79fe}</TemplateGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BullsNCows</RootNamespace>
+    <RootNamespace>BullsNCowsProject</RootNamespace>
     <AssemblyName>BullsNCows</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>True</AndroidApplication>
@@ -148,6 +148,12 @@
     <AndroidResource Include="Resources\layout\item_history.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="BullsNCowsEngine\BullsNCowsEngine.csproj">
+      <Project>{be760b86-06bf-4c29-a4cf-121e3cb6bd56}</Project>
+      <Name>BullsNCowsEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

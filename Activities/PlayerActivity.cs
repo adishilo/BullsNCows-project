@@ -9,10 +9,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using BullsNCows.Components;
-using BullsNCows.Dialogs;
+using BullsNCowsProject.Components;
+using BullsNCowsProject.Dialogs;
 
-namespace BullsNCows.Activities
+namespace BullsNCowsProject.Activities
 {
     [Activity(Label = "PlayerActivity")]
     public class PlayerActivity : Activity

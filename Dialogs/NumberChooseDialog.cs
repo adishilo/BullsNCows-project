@@ -2,7 +2,7 @@
 using Android.Content;
 using Android.Widget;
 
-namespace BullsNCows.Dialogs
+namespace BullsNCowsProject.Dialogs
 {
     public class NumberChooseDialog
     {

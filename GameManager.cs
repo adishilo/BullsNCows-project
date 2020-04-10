@@ -1,8 +1,8 @@
 ﻿using Android.Content;
-using BullsNCows.Activities;
-using BullsNCows.Dialogs;
+using BullsNCowsProject.Activities;
+using BullsNCowsProject.Dialogs;
 
-namespace BullsNCows
+namespace BullsNCowsProject
 {
     public class GameManager
     {

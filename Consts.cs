@@ -1,4 +1,4 @@
-﻿namespace BullsNCows
+﻿namespace BullsNCowsProject
 {
     public static class Consts
     {

@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace BullsNCows.Activities
+namespace BullsNCowsProject.Activities
 {
     [Activity(Label = "InstructionsActivity")]
     public class InstructionsActivity : Activity

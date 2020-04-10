@@ -9,9 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using BullsNCows.Activities;
+using BullsNCowsProject.Activities;
 
-namespace BullsNCows.Components
+namespace BullsNCowsProject.Components
 {
     class HistoryItemAdapter : BaseAdapter<HistoryItem>
     {
