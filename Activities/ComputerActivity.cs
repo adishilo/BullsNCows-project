@@ -19,7 +19,7 @@ namespace BullsNCows.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
+            SetContentView(Resource.Layout.activity_computer);
         }
     }
 }

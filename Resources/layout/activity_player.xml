@@ -1,20 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 
     <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player"
-        android:layout_gravity="center"
-        android:textSize="35dp"
-        android:layout_marginTop="7.5dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player"
+            android:layout_gravity="center"
+            android:textSize="40dp"
+            android:layout_marginTop="7.5dp"
+        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="9.0dp"
+        >
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Type your guess here"
+                android:inputType="numberDecimal"
+                android:id="@+id/etGuessType"
+            />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ask"
+                android:id="@+id/btnGuessSend"
+            />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Guess History"
+            android:textSize="25dp"
+        />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvGuessesHistory"
+        android:layout_marginTop="9.0dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" 
         />
     
-</LinearLayout>
+    </LinearLayout>

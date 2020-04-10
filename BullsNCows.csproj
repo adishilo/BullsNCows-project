@@ -65,6 +65,8 @@
     <Compile Include="Activities\PlayerActivity.cs" />
     <Compile Include="Activities\SettingsActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Components\HistoryItem.cs" />
+    <Compile Include="Components\HistoryItemAdapter.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Dialogs\NumberChooseDialog.cs" />
     <Compile Include="GameManager.cs" />
@@ -135,6 +137,16 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\error_edit.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_computer.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\item_history.xml">
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

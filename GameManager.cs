@@ -8,10 +8,6 @@ namespace BullsNCows
     {
         private string chosenNumber;
 
-        public void SetChosenNumber(string dialogInput)
-        {
-            chosenNumber = dialogInput;
-        }
 
         private static GameManager m_this = null;
 
@@ -48,6 +44,11 @@ namespace BullsNCows
         public void CancelGame()
         {
             gameContext.StartActivity(typeof(MainActivity));
+        }
+
+        public void SetChosenNumber(string dialogInput)
+        {
+            chosenNumber = dialogInput;
         }
     }
 }
