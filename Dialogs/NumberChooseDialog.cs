@@ -52,6 +52,7 @@ namespace BullsNCows.Dialogs
             btnCancel = dialog.FindViewById<Button>(Resource.Id.btnCancel);
             btnCancel.Click += BtnCancel_Click;
             btnOk = dialog.FindViewById<Button>(Resource.Id.btnOk);
+            btnOk.Enabled = false;
             btnOk.Click += BtnOk_Click;
             etDigitsNumber.Hint = $"Choose {expectedNumberOfDigits} different digits";
         }
@@ -74,7 +75,23 @@ namespace BullsNCows.Dialogs
 
         private bool IsLegalNumber(string chosenNumber)
         {
-            return chosenNumber.Length < 4;
+            if (chosenNumber.Length != expectedNumberOfDigits)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < chosenNumber.Length; i++)
+            {
+                for (int j = i + 1; j < chosenNumber.Length; j++)
+                {
+                    if (chosenNumber[i] == chosenNumber[j])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

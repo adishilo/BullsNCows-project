@@ -12,6 +12,7 @@ namespace BullsNCows.Activities
         private Button btnInstructions;
         private Button btnSettings;
         private Button btnGameStart;
+        private Button btnExit;
         private GameManager gameManager;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -30,6 +31,14 @@ namespace BullsNCows.Activities
 
             btnGameStart = FindViewById<Button>(Resource.Id.btnGameStart);
             btnGameStart.Click += BtnGameStart_Click;
+
+            btnExit = FindViewById<Button>(Resource.Id.btnExit);
+            btnExit.Click += BtnExit_Click;
+        }
+
+        private void BtnExit_Click(object sender, System.EventArgs e)
+        {
+            Finish();
         }
 
         private void BtnGameStart_Click(object sender, System.EventArgs e)

@@ -40,7 +40,7 @@ namespace BullsNCows.Activities
 
         private void ChoseNumberDialog_OnNumberChosen(string chosenNumber)
         {
-            
+            GameManager.getInstance().SetChosenNumber(chosenNumber);
         }
     }
 }

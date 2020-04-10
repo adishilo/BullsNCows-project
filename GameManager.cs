@@ -6,6 +6,13 @@ namespace BullsNCows
 {
     public class GameManager
     {
+        private string chosenNumber;
+
+        public void SetChosenNumber(string dialogInput)
+        {
+            chosenNumber = dialogInput;
+        }
+
         private static GameManager m_this = null;
 
         private Context gameContext;
