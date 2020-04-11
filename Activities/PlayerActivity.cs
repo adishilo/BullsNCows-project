@@ -18,7 +18,7 @@ namespace BullsNCowsProject.Activities
     public class PlayerActivity : Activity
     {
         private Button btnAsk;
-        private EditText etGuessTypingPlace;
+        private EditText etGuessTypingPlace; 
         HistoryItemAdapter historyItemAdapter;
         ListView lvGuessesHistory;
 
@@ -68,7 +68,7 @@ namespace BullsNCowsProject.Activities
         private void BtnAsk_Click(object sender, EventArgs e)
         {
             string confirmedGuess = etGuessTypingPlace.Text;
-            var confirmedGuessEvaluation = GameManager.getInstance().GetGuessEvaluation(etGuessTypingPlace.Text);
+            var confirmedGuessEvaluation = GameManager.getInstance().GetPlayerGuessEvaluation(etGuessTypingPlace.Text);
 
             HistoryItem confirmedGuessOnList = new HistoryItem(confirmedGuess, confirmedGuessEvaluation.Bulls.ToString(), confirmedGuessEvaluation.Cows.ToString());
 
@@ -76,6 +76,20 @@ namespace BullsNCowsProject.Activities
             lvGuessesHistory.Adapter = historyItemAdapter;
 
             etGuessTypingPlace.Text = "";
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Result");
+            builder.SetMessage($"You've got {confirmedGuessEvaluation.Bulls} Bulls and {confirmedGuessEvaluation.Cows} Cows for your guess");
+            builder.SetCancelable(false);
+            builder.SetPositiveButton("Continue", ContinueToComputerScreen);
+            AlertDialog dialog = builder.Create();
+            dialog.Show();
+
+        }
+
+        private void ContinueToComputerScreen(object sender, DialogClickEventArgs e)
+        {
+            GameManager.getInstance().NextTurn();
         }
 
         public override void OnBackPressed()
@@ -110,7 +124,7 @@ namespace BullsNCowsProject.Activities
 
         private void ChoseNumberDialog_OnNumberChosen(string chosenNumber)
         {
-            GameManager.getInstance().SetChosenNumber(chosenNumber);
+            GameManager.getInstance().SetPlayerNumber(chosenNumber);
         }
     }
 }

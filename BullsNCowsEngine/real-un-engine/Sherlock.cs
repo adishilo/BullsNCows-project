@@ -58,23 +58,13 @@ namespace BullsNCowsEngine.RealUnEngine
             return new BullsNCows(m_targetNumber, guess);
         }
 
-        public bool GetGuess(Func<string, BullsNCows> answerGuess)
+        public string GetGuess()
         {
             var index = new Random().Next(m_possibleGuesses.Count);
-            string currentGuess = m_possibleGuesses[index];
-            var guessResult = answerGuess(currentGuess);
-
-            if (guessResult.Bulls == m_digitsCount)
-            {
-                return true;
-            }
-
-            EliminateRedundantGuesses(guessResult, currentGuess);
-            
-            return false;
+            return m_possibleGuesses[index];
         }
 
-        private void EliminateRedundantGuesses(BullsNCows guessResult, string currentGuess)
+        public void EliminateRedundantGuesses(BullsNCows guessResult, string currentGuess)
         {
             m_possibleGuesses = m_possibleGuesses.Where(num => {
                 var tempGuess = new BullsNCows(num, currentGuess);

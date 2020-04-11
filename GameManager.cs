@@ -6,10 +6,11 @@ namespace BullsNCowsProject
 {
     public class GameManager
     {
-        private string chosenNumber;
-        private Sherlock currentGamesEngine; 
+        private string playerNumber;
+        private Sherlock currentGameEngine; 
         private static GameManager m_this = null;
         private Context gameContext;
+        private bool isPlayerTurn;
 
         // It is highly irregular to use a getInstance() function of a singleton with a parameter for initialization, because you never know who calls this function
         // first, and if they give the initialization parameter or not.
@@ -39,9 +40,11 @@ namespace BullsNCowsProject
             var settingsFile = gameContext.GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
             int digitsCount = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
 
-            currentGamesEngine = new Sherlock(digitsCount);
+            currentGameEngine = new Sherlock(digitsCount);
 
             gameContext.StartActivity(typeof(PlayerActivity));
+
+            isPlayerTurn = true;
         }
 
         public void CancelGame()
@@ -49,20 +52,41 @@ namespace BullsNCowsProject
             gameContext.StartActivity(typeof(MainActivity));
         }
 
-        public void SetChosenNumber(string dialogInput)
+        public void SetPlayerNumber(string dialogInput)
         {
-            chosenNumber = dialogInput;
+            playerNumber = dialogInput;
         }
 
         public bool IsLegalNumber(string guess)
         {
-            return currentGamesEngine.IsLegalNumber(guess);
+            return currentGameEngine.IsLegalNumber(guess);
         }
         
-        public BullsNCows GetGuessEvaluation(string guess)
+        public BullsNCows GetPlayerGuessEvaluation(string guess)
         {
-            return currentGamesEngine.GetGuessEvaluation(guess);
+            return currentGameEngine.GetGuessEvaluation(guess);
         }
 
+        public BullsNCows GetComputerGuessEvaluation(string playerChosenNumber, string computerGuess)
+        {
+            return new BullsNCows(playerChosenNumber, computerGuess);
+        }
+
+        public void NextTurn()
+        {
+            isPlayerTurn = !isPlayerTurn;
+
+            if (isPlayerTurn)
+            {
+                gameContext.StartActivity(typeof(PlayerActivity));
+            }
+            else
+            {
+                Intent infoForComputerScreen = new Intent(gameContext, typeof(ComputerActivity));
+                infoForComputerScreen.PutExtra("playersNumber", playerNumber);
+                infoForComputerScreen.PutExtra("computersGuess", currentGameEngine.GetGuess());
+                gameContext.StartActivity(infoForComputerScreen);
+            }
+        }
     }
 }

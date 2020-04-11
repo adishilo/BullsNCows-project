@@ -15,12 +15,12 @@ namespace BullsNCowsProject.Components
 {
     class HistoryItemAdapter : BaseAdapter<HistoryItem>
     {
-        private Context context;
+        private Activity activity;
         private List<HistoryItem> historyItems;
 
-        public HistoryItemAdapter(Context context)
+        public HistoryItemAdapter(Activity activity)
         {
-            this.context = context;
+            this.activity = activity;
             historyItems = new List<HistoryItem>();
         }
 
@@ -41,7 +41,7 @@ namespace BullsNCowsProject.Components
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            LayoutInflater layoutInflater = ((PlayerActivity)context).LayoutInflater;
+            LayoutInflater layoutInflater = activity.LayoutInflater;
             View view = layoutInflater.Inflate(Resource.Layout.item_history, parent, false);
 
             TextView tvGuessedNumber = view.FindViewById<TextView>(Resource.Id.tvGuessedNumber);
@@ -51,7 +51,7 @@ namespace BullsNCowsProject.Components
             HistoryItem renderedHistoryItem = historyItems[position];
             if (renderedHistoryItem != null)
             {
-                tvGuessedNumber.Text = $"{position+1}. {renderedHistoryItem.GuessedNumber} ";
+                tvGuessedNumber.Text = $"{Count}. {renderedHistoryItem.GuessedNumber} ";
                 tvBullsNumber.Text = $"B={renderedHistoryItem.BullsNumber}";
                 tvCowsNumber.Text = $"C={renderedHistoryItem.CowsNumber}";
             }
@@ -60,7 +60,12 @@ namespace BullsNCowsProject.Components
        
         public void AddHistoryItem(HistoryItem item)
         {
-            historyItems.Add(item);
+            historyItems.Insert(0, item);
+        }
+
+        public void ReplaceWithCompleteHistoryItem(HistoryItem item)
+        {
+            historyItems[0] = item;
         }
     }
 }
