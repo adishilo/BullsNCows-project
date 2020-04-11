@@ -7,12 +7,13 @@ namespace BullsNCowsEngine.RealUnEngine
     public class Sherlock
     {
         private readonly string m_targetNumber;
+        private readonly int m_digitsCount;
 
         public List<string> m_possibleGuesses = new List<string>();
 
-        public static bool IsLegalNumber(string number)
+        public bool IsLegalNumber(string number)
         {
-            if (number.Length != Consts.DigitsCount)
+            if (number.Length != m_digitsCount)
             {
                 return false;
             }
@@ -31,13 +32,14 @@ namespace BullsNCowsEngine.RealUnEngine
             return true;
         }
 
-        public Sherlock()
+        public Sherlock(int digitsCount)
         {
-            double countPossibilities = Math.Pow(10, Consts.DigitsCount);
+            m_digitsCount = digitsCount;
+            double countPossibilities = Math.Pow(10, m_digitsCount);
 
             for (int i = 0; i < countPossibilities ; i++)
             {
-                var strNumber = i.ToString($"d{Consts.DigitsCount}");
+                var strNumber = i.ToString($"d{m_digitsCount}");
 
                 if (IsLegalNumber(strNumber))
                 {
@@ -51,13 +53,18 @@ namespace BullsNCowsEngine.RealUnEngine
             Console.WriteLine(m_targetNumber);
         }
 
+        public BullsNCows GetGuessEvaluation(string guess)
+        {
+            return new BullsNCows(m_targetNumber, guess);
+        }
+
         public bool GetGuess(Func<string, BullsNCows> answerGuess)
         {
             var index = new Random().Next(m_possibleGuesses.Count);
             string currentGuess = m_possibleGuesses[index];
             var guessResult = answerGuess(currentGuess);
 
-            if (guessResult.Bulls == Consts.DigitsCount)
+            if (guessResult.Bulls == m_digitsCount)
             {
                 return true;
             }

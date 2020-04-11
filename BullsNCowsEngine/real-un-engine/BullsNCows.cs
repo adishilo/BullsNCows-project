@@ -12,9 +12,9 @@ namespace BullsNCowsEngine.RealUnEngine
             Bulls = 0;
             Cows = 0;
 
-            for (int targetIdx = 0; targetIdx < Consts.DigitsCount; targetIdx++)
+            for (int targetIdx = 0; targetIdx < target.Length; targetIdx++)
             {
-                for (int guessIdx = 0; guessIdx < Consts.DigitsCount; guessIdx++)
+                for (int guessIdx = 0; guessIdx < guess.Length; guessIdx++)
                 {
                     if (target[targetIdx] == guess[guessIdx])
                     {

@@ -3335,7 +3335,7 @@ namespace BullsNCowsProject
 			public const int btnGameStart = 2131230761;
 			
 			// aapt resource value: 0x7F08002A
-			public const int btnGuessSend = 2131230762;
+			public const int btnGetAnswer = 2131230762;
 			
 			// aapt resource value: 0x7F08002B
 			public const int btnInstructions = 2131230763;
@@ -3434,7 +3434,7 @@ namespace BullsNCowsProject
 			public const int etDigitsNumber = 2131230793;
 			
 			// aapt resource value: 0x7F08004A
-			public const int etGuessType = 2131230794;
+			public const int etGuessTypingPlace = 2131230794;
 			
 			// aapt resource value: 0x7F08004B
 			public const int exitUntilCollapsed = 2131230795;

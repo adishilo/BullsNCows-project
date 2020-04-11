@@ -1,16 +1,14 @@
 ﻿using Android.Content;
 using BullsNCowsProject.Activities;
 using BullsNCowsProject.Dialogs;
-
+using BullsNCowsEngine.RealUnEngine;
 namespace BullsNCowsProject
 {
     public class GameManager
     {
         private string chosenNumber;
-
-
+        private Sherlock currentGamesEngine; 
         private static GameManager m_this = null;
-
         private Context gameContext;
 
         // It is highly irregular to use a getInstance() function of a singleton with a parameter for initialization, because you never know who calls this function
@@ -38,6 +36,11 @@ namespace BullsNCowsProject
 
         public void StartGame()
         {
+            var settingsFile = gameContext.GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
+            int digitsCount = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
+
+            currentGamesEngine = new Sherlock(digitsCount);
+
             gameContext.StartActivity(typeof(PlayerActivity));
         }
 
@@ -50,5 +53,16 @@ namespace BullsNCowsProject
         {
             chosenNumber = dialogInput;
         }
+
+        public bool IsLegalNumber(string guess)
+        {
+            return currentGamesEngine.IsLegalNumber(guess);
+        }
+        
+        public BullsNCows GetGuessEvaluation(string guess)
+        {
+            return currentGamesEngine.GetGuessEvaluation(guess);
+        }
+
     }
 }

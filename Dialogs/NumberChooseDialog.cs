@@ -29,7 +29,7 @@ namespace BullsNCowsProject.Dialogs
 
         private void EtDigitsNumber_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
-            bool isLegalInput = IsLegalNumber(e.Text.ToString());
+            bool isLegalInput = GameManager.getInstance().IsLegalNumber(e.Text.ToString());
 
             btnOk.Enabled = isLegalInput;
             if (!isLegalInput)
@@ -48,13 +48,16 @@ namespace BullsNCowsProject.Dialogs
             dialog.SetContentView(Resource.Layout.dialog_numberChoose);
             dialog.SetTitle("Choose your number");
             dialog.SetCancelable(false);
+
             etDigitsNumber = dialog.FindViewById<EditText>(Resource.Id.etDigitsNumber);
+            etDigitsNumber.Hint = $"Choose {expectedNumberOfDigits} different digits";
+
             btnCancel = dialog.FindViewById<Button>(Resource.Id.btnCancel);
             btnCancel.Click += BtnCancel_Click;
+
             btnOk = dialog.FindViewById<Button>(Resource.Id.btnOk);
             btnOk.Enabled = false;
             btnOk.Click += BtnOk_Click;
-            etDigitsNumber.Hint = $"Choose {expectedNumberOfDigits} different digits";
         }
 
         private void BtnOk_Click(object sender, System.EventArgs e)
@@ -73,25 +76,6 @@ namespace BullsNCowsProject.Dialogs
             dialog.Hide();
         }
 
-        private bool IsLegalNumber(string chosenNumber)
-        {
-            if (chosenNumber.Length != expectedNumberOfDigits)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < chosenNumber.Length; i++)
-            {
-                for (int j = i + 1; j < chosenNumber.Length; j++)
-                {
-                    if (chosenNumber[i] == chosenNumber[j])
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
+       
     }
 }

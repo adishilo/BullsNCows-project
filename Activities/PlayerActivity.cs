@@ -17,12 +17,10 @@ namespace BullsNCowsProject.Activities
     [Activity(Label = "PlayerActivity")]
     public class PlayerActivity : Activity
     {
-
+        private Button btnAsk;
+        private EditText etGuessTypingPlace;
         HistoryItemAdapter historyItemAdapter;
         ListView lvGuessesHistory;
-        HistoryItem historyItem1 = new HistoryItem("534", "45", "43");
-        HistoryItem historyItem2 = new HistoryItem("43453", "7", "34");
-        HistoryItem historyItem3 = new HistoryItem("6798", "21", "5");
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -38,13 +36,69 @@ namespace BullsNCowsProject.Activities
             choseNumberDialog.OnNumberChosen += ChoseNumberDialog_OnNumberChosen;
             choseNumberDialog.OnCancel += ChoseNumberDialog_OnCancel;
 
-            historyItemAdapter = new HistoryItemAdapter(this);
-            historyItemAdapter.AddHistoryItem(historyItem1);
-            historyItemAdapter.AddHistoryItem(historyItem2);
-            historyItemAdapter.AddHistoryItem(historyItem3);
+            btnAsk = FindViewById<Button>(Resource.Id.btnGetAnswer);
+            btnAsk.Enabled = false;
+            btnAsk.Click += BtnAsk_Click;
 
+            etGuessTypingPlace = FindViewById<EditText>(Resource.Id.etGuessTypingPlace);
+            etGuessTypingPlace.TextChanged += EtGuessTypingPlace_TextChanged;
+
+            historyItemAdapter = new HistoryItemAdapter(this);
+    
             lvGuessesHistory = FindViewById<ListView>(Resource.Id.lvGuessesHistory);
+            
+        }
+
+        
+        private void EtGuessTypingPlace_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            bool isLegalInput = GameManager.getInstance().IsLegalNumber(e.Text.ToString());
+
+            btnAsk.Enabled = isLegalInput;
+            if (!isLegalInput)
+            {
+                etGuessTypingPlace.SetBackgroundResource(Resource.Drawable.error_edit);
+            }
+            else
+            {
+                etGuessTypingPlace.SetBackgroundResource(Resource.Drawable.legal_edit);
+            }
+        }
+
+        private void BtnAsk_Click(object sender, EventArgs e)
+        {
+            string confirmedGuess = etGuessTypingPlace.Text;
+            var confirmedGuessEvaluation = GameManager.getInstance().GetGuessEvaluation(etGuessTypingPlace.Text);
+
+            HistoryItem confirmedGuessOnList = new HistoryItem(confirmedGuess, confirmedGuessEvaluation.Bulls.ToString(), confirmedGuessEvaluation.Cows.ToString());
+
+            historyItemAdapter.AddHistoryItem(confirmedGuessOnList);
             lvGuessesHistory.Adapter = historyItemAdapter;
+
+            etGuessTypingPlace.Text = "";
+        }
+
+        public override void OnBackPressed()
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Exit");
+            builder.SetMessage("Are you sure you want to exit?");
+            builder.SetCancelable(true);
+            builder.SetPositiveButton("Exit", ExitAction);
+            builder.SetNegativeButton("cancel", CancelAction);
+            AlertDialog dialog = builder.Create();
+            dialog.Show();
+        }
+
+        private void ExitAction(object sender, DialogClickEventArgs e)
+        {
+            GameManager.getInstance().CancelGame();
+
+            Finish();
+        }
+
+        private void CancelAction(object sender, DialogClickEventArgs e)
+        {
         }
 
         private void ChoseNumberDialog_OnCancel()
