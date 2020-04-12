@@ -70,6 +70,8 @@
     <Compile Include="Consts.cs" />
     <Compile Include="Dialogs\NumberChooseDialog.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="Models\ComputerModel.cs" />
+    <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

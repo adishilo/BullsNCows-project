@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace BullsNCowsProject.Components
 {
-    class HistoryItem
+    public class HistoryItem
     {
         public string GuessedNumber { get; }
         public string BullsNumber { get; }

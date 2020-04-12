@@ -31,10 +31,13 @@ namespace BullsNCowsProject.Activities
             var settingsFile = GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
             int numberOfDigits = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
 
-            var choseNumberDialog = new NumberChooseDialog(this, numberOfDigits);
+            if (GameManager.getInstance().ModelPlayer.isFirstTurn)
+            {
+                var choseNumberDialog = new NumberChooseDialog(this, numberOfDigits);
 
-            choseNumberDialog.OnNumberChosen += ChoseNumberDialog_OnNumberChosen;
-            choseNumberDialog.OnCancel += ChoseNumberDialog_OnCancel;
+                choseNumberDialog.OnNumberChosen += ChoseNumberDialog_OnNumberChosen;
+                choseNumberDialog.OnCancel += ChoseNumberDialog_OnCancel;
+            }
 
             btnAsk = FindViewById<Button>(Resource.Id.btnGetAnswer);
             btnAsk.Enabled = false;
@@ -43,10 +46,9 @@ namespace BullsNCowsProject.Activities
             etGuessTypingPlace = FindViewById<EditText>(Resource.Id.etGuessTypingPlace);
             etGuessTypingPlace.TextChanged += EtGuessTypingPlace_TextChanged;
 
-            historyItemAdapter = new HistoryItemAdapter(this);
+            historyItemAdapter = new HistoryItemAdapter(this, GameManager.getInstance().ModelPlayer.guessesHistory);
     
             lvGuessesHistory = FindViewById<ListView>(Resource.Id.lvGuessesHistory);
-            
         }
 
         
@@ -84,12 +86,14 @@ namespace BullsNCowsProject.Activities
             builder.SetPositiveButton("Continue", ContinueToComputerScreen);
             AlertDialog dialog = builder.Create();
             dialog.Show();
-
         }
 
         private void ContinueToComputerScreen(object sender, DialogClickEventArgs e)
         {
+            GameManager.getInstance().ModelPlayer.isFirstTurn = false;
             GameManager.getInstance().NextTurn();
+
+            Finish();
         }
 
         public override void OnBackPressed()
@@ -98,21 +102,15 @@ namespace BullsNCowsProject.Activities
             builder.SetTitle("Exit");
             builder.SetMessage("Are you sure you want to exit?");
             builder.SetCancelable(true);
-            builder.SetPositiveButton("Exit", ExitAction);
-            builder.SetNegativeButton("cancel", CancelAction);
+            builder.SetPositiveButton("Exit", (object sender, DialogClickEventArgs e) =>
+                {
+                    GameManager.getInstance().CancelGame();
+
+                    Finish();
+                });
+            builder.SetNegativeButton("cancel", (object sender, DialogClickEventArgs e) => { });
             AlertDialog dialog = builder.Create();
             dialog.Show();
-        }
-
-        private void ExitAction(object sender, DialogClickEventArgs e)
-        {
-            GameManager.getInstance().CancelGame();
-
-            Finish();
-        }
-
-        private void CancelAction(object sender, DialogClickEventArgs e)
-        {
         }
 
         private void ChoseNumberDialog_OnCancel()

@@ -2,11 +2,13 @@
 using BullsNCowsProject.Activities;
 using BullsNCowsProject.Dialogs;
 using BullsNCowsEngine.RealUnEngine;
+using BullsNCowsProject.Models;
+
 namespace BullsNCowsProject
 {
     public class GameManager
     {
-        private string playerNumber;
+        
         private Sherlock currentGameEngine; 
         private static GameManager m_this = null;
         private Context gameContext;
@@ -35,12 +37,19 @@ namespace BullsNCowsProject
         {
         }
 
+        // Set is private because GameManager needs it in order to create the models, get is not - because the activities need access to the models
+        public PlayerModel ModelPlayer { get; private set; }
+        public ComputerModel ModelComputer { get; private set; }
+        
         public void StartGame()
         {
             var settingsFile = gameContext.GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
             int digitsCount = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
 
             currentGameEngine = new Sherlock(digitsCount);
+
+            ModelPlayer = new PlayerModel();
+            ModelComputer = new ComputerModel();
 
             gameContext.StartActivity(typeof(PlayerActivity));
 
@@ -54,7 +63,7 @@ namespace BullsNCowsProject
 
         public void SetPlayerNumber(string dialogInput)
         {
-            playerNumber = dialogInput;
+            ModelPlayer.playersChosenNumber = dialogInput;
         }
 
         public bool IsLegalNumber(string guess)
@@ -82,11 +91,17 @@ namespace BullsNCowsProject
             }
             else
             {
+                ModelComputer.CurrentGuess = currentGameEngine.GetGuess();
                 Intent infoForComputerScreen = new Intent(gameContext, typeof(ComputerActivity));
-                infoForComputerScreen.PutExtra("playersNumber", playerNumber);
-                infoForComputerScreen.PutExtra("computersGuess", currentGameEngine.GetGuess());
+                infoForComputerScreen.PutExtra("playersNumber", ModelPlayer.playersChosenNumber);
+                infoForComputerScreen.PutExtra("computersGuess", ModelComputer.CurrentGuess);
                 gameContext.StartActivity(infoForComputerScreen);
             }
+        }
+
+        public void UpdateComputerWithPlayerAnswer(BullsNCows playerAnswer)
+        {
+            currentGameEngine.EliminateRedundantGuesses(playerAnswer, ModelComputer.CurrentGuess);
         }
     }
 }

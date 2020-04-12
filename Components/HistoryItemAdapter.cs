@@ -18,10 +18,10 @@ namespace BullsNCowsProject.Components
         private Activity activity;
         private List<HistoryItem> historyItems;
 
-        public HistoryItemAdapter(Activity activity)
+        public HistoryItemAdapter(Activity activity, List<HistoryItem> historyItems)
         {
             this.activity = activity;
-            historyItems = new List<HistoryItem>();
+            this.historyItems = historyItems;
         }
 
         public override long GetItemId(int position)

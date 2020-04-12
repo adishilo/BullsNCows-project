@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using BullsNCowsEngine.RealUnEngine;
 using BullsNCowsProject.Components;
 
 namespace BullsNCowsProject.Activities
@@ -21,12 +22,13 @@ namespace BullsNCowsProject.Activities
         EditText etCows;
         Button btnSubmitAnswer;
         string playersNumber;
-        bool isCorrectCows;
-        bool isCorrectBulls;
+        bool isCorrectCows = false;
+        bool isCorrectBulls = false;
         string computersGuess;
         int numberOfDigits;
         HistoryItemAdapter historyItemAdapter;
         ListView lvComputerGuessesHistory;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,6 +40,12 @@ namespace BullsNCowsProject.Activities
 
             playersNumber = Intent.GetStringExtra("playersNumber");
             tvPlayersNumberDisplay.Text = $"Player's number:{playersNumber}";
+            computersGuess = Intent.GetStringExtra("computersGuess");
+            HistoryItem computersGuessPartial = new HistoryItem(computersGuess, "?", "?");
+            
+            historyItemAdapter = new HistoryItemAdapter(this, GameManager.getInstance().ModelComputer.guessesHistory);
+            historyItemAdapter.AddHistoryItem(computersGuessPartial);
+            lvComputerGuessesHistory.Adapter = historyItemAdapter;
 
             etBulls = FindViewById<EditText>(Resource.Id.etBulls);
             etBulls.TextChanged += EtBulls_TextChanged;
@@ -47,27 +55,10 @@ namespace BullsNCowsProject.Activities
 
             btnSubmitAnswer = FindViewById<Button>(Resource.Id.btnSubmitAnswer);
             btnSubmitAnswer.Click += BtnSubmitAnswer_Click;
-
-            historyItemAdapter = new HistoryItemAdapter(this);
+            btnSubmitAnswer.Enabled = false;
 
             var settingsFile = GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
             numberOfDigits = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
-
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-
-            isCorrectCows = false;
-            isCorrectBulls = false;
-            btnSubmitAnswer.Enabled = false;
-
-            computersGuess = Intent.GetStringExtra("computersGuess");
-            HistoryItem computersGuessPartial = new HistoryItem(computersGuess, "?", "?");
-
-            historyItemAdapter.AddHistoryItem(computersGuessPartial);
-            lvComputerGuessesHistory.Adapter = historyItemAdapter;
         }
 
         private void BtnSubmitAnswer_Click(object sender, EventArgs e)
@@ -80,7 +71,13 @@ namespace BullsNCowsProject.Activities
             historyItemAdapter.ReplaceWithCompleteHistoryItem(computerGuessComplete);
             lvComputerGuessesHistory.Adapter = historyItemAdapter;
 
+            GameManager.getInstance().UpdateComputerWithPlayerAnswer(new BullsNCows(
+                int.Parse(etBulls.Text.ToString()),
+                int.Parse(etCows.Text.ToString())));
+
             GameManager.getInstance().NextTurn();
+
+            Finish();
         }
 
         private void EtCows_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
@@ -140,21 +137,15 @@ namespace BullsNCowsProject.Activities
             builder.SetTitle("Exit");
             builder.SetMessage("Are you sure you want to exit?");
             builder.SetCancelable(true);
-            builder.SetPositiveButton("Exit", ExitAction);
-            builder.SetNegativeButton("cancel", CancelAction);
+            builder.SetPositiveButton("Exit", (object sender, DialogClickEventArgs e) =>
+                {
+                    GameManager.getInstance().CancelGame();
+
+                    Finish();
+                });
+            builder.SetNegativeButton("cancel", (object sender, DialogClickEventArgs e) => { });
             AlertDialog dialog = builder.Create();
             dialog.Show();
-        }
-
-        private void ExitAction(object sender, DialogClickEventArgs e)
-        {
-            GameManager.getInstance().CancelGame();
-
-            Finish();
-        }
-
-        private void CancelAction(object sender, DialogClickEventArgs e)
-        {
         }
     }
 }

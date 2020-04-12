@@ -5,6 +5,12 @@ namespace BullsNCowsEngine.RealUnEngine
         public int Bulls { get; }
         public int Cows { get; }
 
+        public BullsNCows(int bulls, int cows)
+        {
+            Bulls = bulls;
+            Cows = cows;
+        }
+
         // Assumption:
         // <target> and <guess> are digits only string with no duplicates.
         public BullsNCows(string target, string guess)
