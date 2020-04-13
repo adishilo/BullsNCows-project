@@ -20,25 +20,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="At the start of the game, the player choose a secret sequence 
-
-of digits which consists of 3-5(can be changed in the settings, 
-0 can be the first digit) different digits, and type it in the 
-popup that will show at the start of the game. Then, in turn, 
-the player and the computer try to guess their opponent's 
-number, and get the number of matches for their guess in 
-return. If the matching digits are in their right positions, they 
-are bulls, if in different positions, they are cows.
-
-
-Example:
-
-    Secret sequence: 4271
-    Opponent's try: 1234
-
-Answer: 1 bull and 2 cows. (The bull is 2, the cows are 4 and 1.)
-        
-The first one to reveal the other's secret sequence in the least number of guesses wins the game."
+        android:padding="20dp"
+        android:text="At the start of the game, the player chooses a secret sequence of digits which consists of 3-5 (can be changed in the settings and 0 can be the first digit) different digits, and type it in the popup that shows at the start of the game.\n
+        Then, in turn, the player and the computer try to guess their opponent's number, and get the number of matches for their guess in return. If the matching digits are in their right positions, they are bulls, if in different positions, they are cows.\n
+\n
+Example:\n
+\n
+    Secret sequence: 4271\n
+    Opponent's try: 1234\n
+\n
+Answer: 1 bull and 2 cows. (The bull is 2, the cows are 4 and 1.)\n
+\n
+The first one to reveal the other's secret sequence wins the game."
 
     />
     <LinearLayout
