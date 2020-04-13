@@ -46,11 +46,12 @@ namespace BullsNCowsProject
             var settingsFile = gameContext.GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
             int digitsCount = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
 
-            currentGameEngine = new Sherlock(digitsCount);
+            int strength = 90;
+            currentGameEngine = new Sherlock(digitsCount, strength);
 
             ModelPlayer = new PlayerModel();
             ModelComputer = new ComputerModel();
-
+            
             gameContext.StartActivity(typeof(PlayerActivity));
 
             isPlayerTurn = true;
