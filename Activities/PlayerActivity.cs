@@ -18,7 +18,8 @@ namespace BullsNCowsProject.Activities
     public class PlayerActivity : Activity
     {
         private Button btnAsk;
-        private EditText etGuessTypingPlace; 
+        private EditText etGuessTypingPlace;
+        int numberOfDigits;
         HistoryItemAdapter historyItemAdapter;
         ListView lvGuessesHistory;
 
@@ -29,7 +30,7 @@ namespace BullsNCowsProject.Activities
             SetContentView(Resource.Layout.activity_player);
 
             var settingsFile = GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
-            int numberOfDigits = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
+            numberOfDigits = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
 
             if (GameManager.getInstance().ModelPlayer.isFirstTurn)
             {
@@ -47,8 +48,9 @@ namespace BullsNCowsProject.Activities
             etGuessTypingPlace.TextChanged += EtGuessTypingPlace_TextChanged;
 
             historyItemAdapter = new HistoryItemAdapter(this, GameManager.getInstance().ModelPlayer.guessesHistory);
-    
+
             lvGuessesHistory = FindViewById<ListView>(Resource.Id.lvGuessesHistory);
+            lvGuessesHistory.Adapter = historyItemAdapter;
         }
 
         
@@ -72,20 +74,38 @@ namespace BullsNCowsProject.Activities
             string confirmedGuess = etGuessTypingPlace.Text;
             var confirmedGuessEvaluation = GameManager.getInstance().GetPlayerGuessEvaluation(etGuessTypingPlace.Text);
 
-            HistoryItem confirmedGuessOnList = new HistoryItem(confirmedGuess, confirmedGuessEvaluation.Bulls.ToString(), confirmedGuessEvaluation.Cows.ToString());
+            if (confirmedGuessEvaluation.Bulls == numberOfDigits)
+            {
+                AlertDialog.Builder winDialogBuilder = new AlertDialog.Builder(this);
+                winDialogBuilder.SetTitle("You won!");
+                winDialogBuilder.SetMessage("You guessed computer's number before it guessed yours");
+                winDialogBuilder.SetCancelable(false);
+                winDialogBuilder.SetPositiveButton("Main Menu", (object sender, DialogClickEventArgs e) =>
+                {
+                    GameManager.getInstance().CancelGame();
 
-            historyItemAdapter.AddHistoryItem(confirmedGuessOnList);
-            lvGuessesHistory.Adapter = historyItemAdapter;
+                    Finish();
+                });
+                AlertDialog winDialog = winDialogBuilder.Create();
+                winDialog.Show();
+            }
+            else
+            {
+                HistoryItem confirmedGuessOnList = new HistoryItem(confirmedGuess, confirmedGuessEvaluation.Bulls.ToString(), confirmedGuessEvaluation.Cows.ToString());
 
-            etGuessTypingPlace.Text = "";
+                historyItemAdapter.AddHistoryItem(confirmedGuessOnList);
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Result");
-            builder.SetMessage($"You've got {confirmedGuessEvaluation.Bulls} Bulls and {confirmedGuessEvaluation.Cows} Cows for your guess");
-            builder.SetCancelable(false);
-            builder.SetPositiveButton("Continue", ContinueToComputerScreen);
-            AlertDialog dialog = builder.Create();
-            dialog.Show();
+
+                etGuessTypingPlace.Text = "";
+
+                AlertDialog.Builder guessResultDialogbuilder = new AlertDialog.Builder(this);
+                guessResultDialogbuilder.SetTitle("Result");
+                guessResultDialogbuilder.SetMessage($"You've got {confirmedGuessEvaluation.Bulls} Bulls and {confirmedGuessEvaluation.Cows} Cows for your guess");
+                guessResultDialogbuilder.SetCancelable(false);
+                guessResultDialogbuilder.SetPositiveButton("Continue", ContinueToComputerScreen);
+                AlertDialog guessResultDialog = guessResultDialogbuilder.Create();
+                guessResultDialog.Show();
+            }
         }
 
         private void ContinueToComputerScreen(object sender, DialogClickEventArgs e)
@@ -98,19 +118,19 @@ namespace BullsNCowsProject.Activities
 
         public override void OnBackPressed()
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Exit");
-            builder.SetMessage("Are you sure you want to exit?");
-            builder.SetCancelable(true);
-            builder.SetPositiveButton("Exit", (object sender, DialogClickEventArgs e) =>
+            AlertDialog.Builder cancelGameDialogBuilder = new AlertDialog.Builder(this);
+            cancelGameDialogBuilder.SetTitle("Exit");
+            cancelGameDialogBuilder.SetMessage("Are you sure you want to exit?");
+            cancelGameDialogBuilder.SetCancelable(true);
+            cancelGameDialogBuilder.SetPositiveButton("Exit", (object sender, DialogClickEventArgs e) =>
                 {
                     GameManager.getInstance().CancelGame();
 
                     Finish();
                 });
-            builder.SetNegativeButton("cancel", (object sender, DialogClickEventArgs e) => { });
-            AlertDialog dialog = builder.Create();
-            dialog.Show();
+            cancelGameDialogBuilder.SetNegativeButton("cancel", (object sender, DialogClickEventArgs e) => { });
+            AlertDialog cancelDialog = cancelGameDialogBuilder.Create();
+            cancelDialog.Show();
         }
 
         private void ChoseNumberDialog_OnCancel()

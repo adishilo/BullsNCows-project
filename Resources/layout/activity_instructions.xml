@@ -15,6 +15,46 @@
         android:layout_gravity="center"
         android:textSize="35dp"
         android:layout_marginTop="7.5dp"
+    />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="At the start of the game, the player choose a secret sequence 
+
+of digits which consists of 3-5(can be changed in the settings, 
+0 can be the first digit) different digits, and type it in the 
+popup that will show at the start of the game. Then, in turn, 
+the player and the computer try to guess their opponent's 
+number, and get the number of matches for their guess in 
+return. If the matching digits are in their right positions, they 
+are bulls, if in different positions, they are cows.
+
+
+Example:
+
+    Secret sequence: 4271
+    Opponent's try: 1234
+
+Answer: 1 bull and 2 cows. (The bull is 2, the cows are 4 and 1.)
+        
+The first one to reveal the other's secret sequence in the least number of guesses wins the game."
+
+    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Main Menu"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/btnMainMenu"
+            android:layout_marginBottom="38.0dp" 
         />
-    
+    </LinearLayout>
 </LinearLayout>

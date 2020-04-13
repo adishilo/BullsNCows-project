@@ -15,12 +15,21 @@ namespace BullsNCowsProject.Activities
     [Activity(Label = "InstructionsActivity")]
     public class InstructionsActivity : Activity
     {
+        Button btnMainMenu;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             
             SetContentView(Resource.Layout.activity_instructions);
+
+            btnMainMenu = FindViewById<Button>(Resource.Id.btnMainMenu);
+            btnMainMenu.Click += BtnMainMenu_Click;
+        }
+
+        private void BtnMainMenu_Click(object sender, EventArgs e)
+        {
+            Finish();
         }
     }
 }

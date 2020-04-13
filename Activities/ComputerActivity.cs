@@ -21,11 +21,11 @@ namespace BullsNCowsProject.Activities
         EditText etBulls;
         EditText etCows;
         Button btnSubmitAnswer;
+        int numberOfDigits;
         string playersNumber;
         bool isCorrectCows = false;
         bool isCorrectBulls = false;
         string computersGuess;
-        int numberOfDigits;
         HistoryItemAdapter historyItemAdapter;
         ListView lvComputerGuessesHistory;
 
@@ -63,21 +63,35 @@ namespace BullsNCowsProject.Activities
 
         private void BtnSubmitAnswer_Click(object sender, EventArgs e)
         {
-            //if (int.Parse(etBulls.Text) == numberOfDigits)
-            //{ 
-                
-            //}
-            HistoryItem computerGuessComplete = new HistoryItem(computersGuess, etBulls.Text, etCows.Text);
-            historyItemAdapter.ReplaceWithCompleteHistoryItem(computerGuessComplete);
-            lvComputerGuessesHistory.Adapter = historyItemAdapter;
+            if (int.Parse(etBulls.Text) == numberOfDigits)
+            {
+                AlertDialog.Builder losingDialogBuilder = new AlertDialog.Builder(this);
+                losingDialogBuilder.SetTitle("You lost :(");
+                losingDialogBuilder.SetMessage("Computer managed to guess your number before you guessed its number");
+                losingDialogBuilder.SetCancelable(false);
+                losingDialogBuilder.SetPositiveButton("Main Menu", (object sender, DialogClickEventArgs e) =>
+                {
+                    GameManager.getInstance().CancelGame();
 
-            GameManager.getInstance().UpdateComputerWithPlayerAnswer(new BullsNCows(
-                int.Parse(etBulls.Text.ToString()),
-                int.Parse(etCows.Text.ToString())));
+                    Finish();
+                });
+                AlertDialog losingDialog = losingDialogBuilder.Create();
+                losingDialog.Show();
+            }
+            else
+            {
+                HistoryItem computerGuessComplete = new HistoryItem(computersGuess, etBulls.Text, etCows.Text);
+                historyItemAdapter.ReplaceWithCompleteHistoryItem(computerGuessComplete);
+                lvComputerGuessesHistory.Adapter = historyItemAdapter;
 
-            GameManager.getInstance().NextTurn();
+                GameManager.getInstance().UpdateComputerWithPlayerAnswer(new BullsNCows(
+                    int.Parse(etBulls.Text.ToString()),
+                    int.Parse(etCows.Text.ToString())));
 
-            Finish();
+                GameManager.getInstance().NextTurn();
+
+                Finish();
+            }
         }
 
         private void EtCows_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
@@ -133,19 +147,19 @@ namespace BullsNCowsProject.Activities
 
         public override void OnBackPressed()
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Exit");
-            builder.SetMessage("Are you sure you want to exit?");
-            builder.SetCancelable(true);
-            builder.SetPositiveButton("Exit", (object sender, DialogClickEventArgs e) =>
+            AlertDialog.Builder cancelGameDialogBuilder = new AlertDialog.Builder(this);
+            cancelGameDialogBuilder.SetTitle("Exit");
+            cancelGameDialogBuilder.SetMessage("Are you sure you want to exit?");
+            cancelGameDialogBuilder.SetCancelable(true);
+            cancelGameDialogBuilder.SetPositiveButton("Exit", (object sender, DialogClickEventArgs e) =>
                 {
                     GameManager.getInstance().CancelGame();
 
                     Finish();
                 });
-            builder.SetNegativeButton("cancel", (object sender, DialogClickEventArgs e) => { });
-            AlertDialog dialog = builder.Create();
-            dialog.Show();
+            cancelGameDialogBuilder.SetNegativeButton("cancel", (object sender, DialogClickEventArgs e) => { });
+            AlertDialog cancelDialog = cancelGameDialogBuilder.Create();
+            cancelDialog.Show();
         }
     }
 }

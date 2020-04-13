@@ -51,7 +51,7 @@ namespace BullsNCowsProject.Components
             HistoryItem renderedHistoryItem = historyItems[position];
             if (renderedHistoryItem != null)
             {
-                tvGuessedNumber.Text = $"{Count}. {renderedHistoryItem.GuessedNumber} ";
+                tvGuessedNumber.Text = $"{Count-position}. {renderedHistoryItem.GuessedNumber} ";
                 tvBullsNumber.Text = $"B={renderedHistoryItem.BullsNumber}";
                 tvCowsNumber.Text = $"C={renderedHistoryItem.CowsNumber}";
             }
