@@ -11,8 +11,15 @@ namespace BullsNCowsEngine.RealUnEngine
             Cows = cows;
         }
 
-        // Assumption:
-        // <target> and <guess> are digits only string with no duplicates.
+        /**
+         * summary fioejwfio
+         * 
+         * param name="guess" ifje woifdj
+         * param name="target" iofjreowij
+         * 
+         * Assumption:
+         * <see cref="target"/> and <see cref="guess"/> are digits only string with no duplicates.
+         */
         public BullsNCows(string target, string guess)
         {
             Bulls = 0;

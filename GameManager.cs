@@ -45,8 +45,8 @@ namespace BullsNCowsProject
         {
             var settingsFile = gameContext.GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
             int digitsCount = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
+            int strength = settingsFile.GetInt(Consts.engineStrengthSettingsName, Consts.engineStrengthDefault);
 
-            int strength = 90;
             currentGameEngine = new Sherlock(digitsCount, strength);
 
             ModelPlayer = new PlayerModel();

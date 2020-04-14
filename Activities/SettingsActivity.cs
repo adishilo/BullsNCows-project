@@ -15,10 +15,13 @@ namespace BullsNCowsProject.Activities
     [Activity(Label = "SettingsActivity")]
     public class SettingsActivity : Activity
     {
+        private Button btnMainMenu;
+        private TextView tvProgressDisplay;
         private RadioButton rbDigits3;
         private RadioButton rbDigits4;
         private RadioButton rbDigits5;
         private RadioGroup rgDigits;
+        private SeekBar sbDifficulty;
         private ISharedPreferences settingsFile;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -40,7 +43,32 @@ namespace BullsNCowsProject.Activities
 
             rgDigits = FindViewById<RadioGroup>(Resource.Id.rgDigits);
 
+            btnMainMenu = FindViewById<Button>(Resource.Id.btnMainMenu);
+            btnMainMenu.Click += BtnMainMenu_Click;
+
+            sbDifficulty = FindViewById<SeekBar>(Resource.Id.sbDifficulty);
+            sbDifficulty.Min = 50;
+            sbDifficulty.Progress = settingsFile.GetInt(Consts.engineStrengthSettingsName, 100);
+            sbDifficulty.ProgressChanged += SbDifficulty_ProgressChanged;
+
+            tvProgressDisplay = FindViewById<TextView>(Resource.Id.tvProgressDisplay);
+            tvProgressDisplay.Text = $"{sbDifficulty.Progress}%";
+
             ShowNumOfDigitsSelection();
+        }
+
+        private void SbDifficulty_ProgressChanged(object sender, SeekBar.ProgressChangedEventArgs e)
+        {
+            tvProgressDisplay.Text = $"{sbDifficulty.Progress}%";
+
+            var editor = settingsFile.Edit();
+            editor.PutInt(Consts.engineStrengthSettingsName, sbDifficulty.Progress);
+            editor.Commit();
+        }
+
+        private void BtnMainMenu_Click(object sender, EventArgs e)
+        {
+            Finish();
         }
 
         private void ShowNumOfDigitsSelection()
