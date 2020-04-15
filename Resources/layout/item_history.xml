@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="#GuessedNumber"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:id="@+id/tvGuessedNumber"
     />
 
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="B#"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:layout_gravity="right"
             android:id="@+id/tvNumberOfBulls"
             android:foregroundGravity="right" 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="C#"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:layout_gravity="right"
             android:layout_marginLeft="10.5dp"
             android:id="@+id/tvNumberOfCows"
