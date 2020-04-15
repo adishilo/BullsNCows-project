@@ -17,12 +17,14 @@ namespace BullsNCowsProject.Components
         public string GuessedNumber { get; }
         public string BullsNumber { get; }
         public string CowsNumber { get; }
+        public bool IsEmphasis { get; }
 
-        public HistoryItem(string guessedNumber, string bullsNumber, string cowsNumber)
+        public HistoryItem(string guessedNumber, string bullsNumber, string cowsNumber, bool isEmphasis = false)
         {
             GuessedNumber = guessedNumber;
             BullsNumber = bullsNumber;
             CowsNumber = cowsNumber;
+            IsEmphasis = isEmphasis;
         }
     }
 }

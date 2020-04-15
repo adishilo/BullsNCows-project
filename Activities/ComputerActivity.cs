@@ -41,7 +41,7 @@ namespace BullsNCowsProject.Activities
             playersNumber = Intent.GetStringExtra("playersNumber");
             tvPlayersNumberDisplay.Text = $"Player's number:{playersNumber}";
             computersGuess = Intent.GetStringExtra("computersGuess");
-            HistoryItem computersGuessPartial = new HistoryItem(computersGuess, "?", "?");
+            HistoryItem computersGuessPartial = new HistoryItem(computersGuess, "?", "?", true);
             
             historyItemAdapter = new HistoryItemAdapter(this, GameManager.getInstance().ModelComputer.guessesHistory);
             historyItemAdapter.AddHistoryItem(computersGuessPartial);

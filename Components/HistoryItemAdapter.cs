@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+using Android.Graphics;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
-using BullsNCowsProject.Activities;
 
 namespace BullsNCowsProject.Components
 {
@@ -51,9 +46,17 @@ namespace BullsNCowsProject.Components
             HistoryItem renderedHistoryItem = historyItems[position];
             if (renderedHistoryItem != null)
             {
-                tvGuessedNumber.Text = $"{Count-position}. {renderedHistoryItem.GuessedNumber} ";
+                tvGuessedNumber.Text = $"{Count-position}. {renderedHistoryItem.GuessedNumber}";
                 tvBullsNumber.Text = $"B={renderedHistoryItem.BullsNumber}";
                 tvCowsNumber.Text = $"C={renderedHistoryItem.CowsNumber}";
+
+                if (renderedHistoryItem.IsEmphasis)
+                {
+                    view.SetBackgroundColor(new Color(ContextCompat.GetColor(activity, Resource.Color.emphasis)));
+                    tvGuessedNumber.SetTypeface(null, TypefaceStyle.Bold);
+                    tvBullsNumber.SetTypeface(null, TypefaceStyle.Bold);
+                    tvCowsNumber.SetTypeface(null, TypefaceStyle.Bold);
+                }
             }
             return view;
         }
