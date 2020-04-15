@@ -67,20 +67,22 @@
             
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="17dp"
+        android:text="Computer Strength"
+        android:textSize="20dp"
+        android:layout_weight="0"
+    />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="17dp"
-        android:layout_marginTop="40dp"
     >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Difficulty"
-            android:textSize="20dp"
-            android:layout_weight="0"
-        />
 
         <SeekBar
             android:layout_width="match_parent"
