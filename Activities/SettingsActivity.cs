@@ -71,6 +71,9 @@ namespace BullsNCowsProject.Activities
             Finish();
         }
 
+        /**
+         * summary: takes the number of digits value written in <see cref="settingsFile"/> and checks the right radio button in the settings screen
+         */
         private void ShowNumOfDigitsSelection()
         {
             int numberOfDigits = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);

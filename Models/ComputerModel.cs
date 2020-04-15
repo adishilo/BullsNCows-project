@@ -16,7 +16,6 @@ namespace BullsNCowsProject.Models
     public class ComputerModel
     {
         public List<HistoryItem> guessesHistory { get; set; } = new List<HistoryItem>();
-        public bool isFirstTurn { get; set; }
 
         public string CurrentGuess { get; set; }
     }

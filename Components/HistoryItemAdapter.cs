@@ -58,11 +58,22 @@ namespace BullsNCowsProject.Components
             return view;
         }
        
+        /**
+         * summary: Gets a <see cref="HistoryItem"/> object and insert it to the first place in the list <see cref="historyItems"/>
+         * 
+         * param name="item"
+         */
         public void AddHistoryItem(HistoryItem item)
         {
             historyItems.Insert(0, item);
         }
 
+        /**
+         * summary: Replace the <see cref="HistoryItem"/> in the first spot of the list with another <see cref="HistoryItem"/> it gets 
+         * as a parameter
+         * 
+         * param name="item"
+         */ 
         public void ReplaceWithCompleteHistoryItem(HistoryItem item)
         {
             historyItems[0] = item;

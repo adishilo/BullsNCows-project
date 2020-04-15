@@ -41,6 +41,10 @@ namespace BullsNCowsProject
         public PlayerModel ModelPlayer { get; private set; }
         public ComputerModel ModelComputer { get; private set; }
         
+        /**
+         * summary: Gets everything needed to start the game prepared. Takes the needed values from the SP file, creates the objects needed 
+         * to run and display the game, then create <see cref="PlayerActivity"/>
+         */
         public void StartGame()
         {
             var settingsFile = gameContext.GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
@@ -55,11 +59,6 @@ namespace BullsNCowsProject
             gameContext.StartActivity(typeof(PlayerActivity));
 
             isPlayerTurn = true;
-        }
-
-        public void CancelGame()
-        {
-            gameContext.StartActivity(typeof(MainActivity));
         }
 
         public void SetPlayerNumber(string dialogInput)

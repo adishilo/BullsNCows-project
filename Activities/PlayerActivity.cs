@@ -82,8 +82,6 @@ namespace BullsNCowsProject.Activities
                 winDialogBuilder.SetCancelable(false);
                 winDialogBuilder.SetPositiveButton("Main Menu", (object sender, DialogClickEventArgs e) =>
                 {
-                    GameManager.getInstance().CancelGame();
-
                     Finish();
                 });
                 AlertDialog winDialog = winDialogBuilder.Create();
@@ -124,8 +122,6 @@ namespace BullsNCowsProject.Activities
             cancelGameDialogBuilder.SetCancelable(true);
             cancelGameDialogBuilder.SetPositiveButton("Exit", (object sender, DialogClickEventArgs e) =>
                 {
-                    GameManager.getInstance().CancelGame();
-
                     Finish();
                 });
             cancelGameDialogBuilder.SetNegativeButton("cancel", (object sender, DialogClickEventArgs e) => { });
@@ -135,8 +131,6 @@ namespace BullsNCowsProject.Activities
 
         private void ChoseNumberDialog_OnCancel()
         {
-            GameManager.getInstance().CancelGame();
-
             Finish();
         }
 
