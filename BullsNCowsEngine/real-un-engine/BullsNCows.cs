@@ -12,10 +12,13 @@ namespace BullsNCowsEngine.RealUnEngine
         }
 
         /**
-         * summary fioejwfio
+         * summary: The function gets two int numbers as parameters, and calculate how many digits are in both numbers ("Cows")
+         * and how many digits are in both numbers and are in the same spot ("Bulls"). It then creates an object of the class <see cref="BullsNCows"/>
+         * with the values of "Bulls" and "Cows" it calculated beforehand.
          * 
-         * param name="guess" ifje woifdj
-         * param name="target" iofjreowij
+         * param name="guess": The number guessed by the computer/player
+         * param name="target": The number we are comparing the guess to.
+         * could be the actual secret number or a possible guess.
          * 
          * Assumption:
          * <see cref="target"/> and <see cref="guess"/> are digits only string with no duplicates.
@@ -49,6 +52,9 @@ namespace BullsNCowsEngine.RealUnEngine
             return $"[Bulls: {Bulls}, Cows: {Cows}]";
         }
 
+        /**
+         * summary: The function compares a given <see cref="BullsNCows"/> object to this one. 
+         */
         public bool Equals(BullsNCows other)
         {
             return Bulls == other.Bulls && Cows == other.Cows;

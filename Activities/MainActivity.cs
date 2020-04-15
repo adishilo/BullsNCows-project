@@ -7,7 +7,7 @@ using Android.Content;
 
 namespace BullsNCowsProject.Activities
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Locked)]
     public class MainActivity : AppCompatActivity
     {
         private Button btnInstructions;
@@ -57,7 +57,7 @@ namespace BullsNCowsProject.Activities
             StartActivity(typeof(InstructionsActivity));
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
