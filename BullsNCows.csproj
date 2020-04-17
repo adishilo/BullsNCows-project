@@ -108,11 +108,6 @@
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\values\app_theme_colors.xml">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\values\app_styles.xml" />
     <AndroidResource Include="Resources\drawable\wind_warrior.png">
       <SubType></SubType>
       <Generator></Generator>
@@ -120,6 +115,10 @@
     <AndroidResource Include="Resources\drawable\robot.png">
       <SubType></SubType>
       <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\menu\menu_main.xml">
+      <SubType></SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +171,9 @@
       <Project>{be760b86-06bf-4c29-a4cf-121e3cb6bd56}</Project>
       <Name>BullsNCowsEngine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

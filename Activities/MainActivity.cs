@@ -4,6 +4,7 @@ using Android.Support.V7.App;
 using Android.Runtime;
 using Android.Widget;
 using Android.Content;
+using Android.Views;
 
 namespace BullsNCowsProject.Activities
 {
@@ -37,6 +38,13 @@ namespace BullsNCowsProject.Activities
             btnExit.Click += BtnExit_Click;
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
         private void BtnExit_Click(object sender, System.EventArgs e)
         {
             Finish();
@@ -55,13 +63,6 @@ namespace BullsNCowsProject.Activities
         private void BtnInstructions_Click(object sender, System.EventArgs e)
         {
             StartActivity(typeof(InstructionsActivity));
-        }
-
-public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

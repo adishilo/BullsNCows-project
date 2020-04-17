@@ -1,8 +1,0 @@
-<resources>
-
-    <style name="BullsNCowsTheme" parent="android:Theme.Material.Light">
-        <item name="colorPrimary">@color/my_blue</item>
-        <item name="colorAccent">@color/my_purple</item>
-    </style>
-
-</resources>
