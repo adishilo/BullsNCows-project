@@ -45,6 +45,23 @@ namespace BullsNCowsProject.Activities
             return base.OnCreateOptionsMenu(menu);
         }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.menu_settings:
+                    StartActivity(typeof(SettingsActivity));
+
+                    return true;
+
+                case Resource.Id.menu_exit:
+                    Finish();
+
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
         private void BtnExit_Click(object sender, System.EventArgs e)
         {
             Finish();

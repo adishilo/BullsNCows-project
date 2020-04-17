@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
+        android:fontFamily="casual"
         android:layout_gravity="center"
         android:textSize="35dp"
         android:layout_marginTop="15dp"
@@ -115,7 +116,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Back to Main Menu"
+            android:text="Back to Start"
             android:textSize="20dp"
             android:layout_gravity="center"
             android:id="@+id/btnMainMenu"
