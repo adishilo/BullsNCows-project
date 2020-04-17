@@ -76,6 +76,8 @@ namespace BullsNCowsProject.Activities
 
             if (confirmedGuessEvaluation.Bulls == numberOfDigits)
             {
+                GameManager.getInstance().EndGame(true);
+
                 AlertDialog.Builder winDialogBuilder = new AlertDialog.Builder(this);
                 winDialogBuilder.SetTitle("You won!");
                 winDialogBuilder.SetMessage("You guessed computer's number before it guessed yours");

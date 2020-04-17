@@ -12,6 +12,8 @@ namespace BullsNCowsEngine.RealUnEngine
 
         public List<string> m_possibleGuesses = new List<string>();
 
+        public string SecretNumber => m_targetNumber;
+
         /**
          * summary: Function gets as parameter a sequence of digits (a number) in string form,
          * and returns whether or not the input is legal according to the game's rules (no double digits, certain lentgh)

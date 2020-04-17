@@ -54,6 +54,11 @@ namespace BullsNCowsProject.Activities
 
                     return true;
 
+                case Resource.Id.menu_scores:
+                    StartActivity(typeof(ScoresActivity));
+
+                    return true;
+
                 case Resource.Id.menu_exit:
                     Finish();
 

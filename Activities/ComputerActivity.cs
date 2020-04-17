@@ -65,6 +65,8 @@ namespace BullsNCowsProject.Activities
         {
             if (int.Parse(etBulls.Text) == numberOfDigits)
             {
+                GameManager.getInstance().EndGame(false);
+
                 AlertDialog.Builder losingDialogBuilder = new AlertDialog.Builder(this);
                 losingDialogBuilder.SetTitle("You lost :(");
                 losingDialogBuilder.SetMessage("Computer managed to guess your number before you guessed its number");

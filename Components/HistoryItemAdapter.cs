@@ -10,8 +10,8 @@ namespace BullsNCowsProject.Components
 {
     class HistoryItemAdapter : BaseAdapter<HistoryItem>
     {
-        private Activity activity;
-        private List<HistoryItem> historyItems;
+        private readonly Activity activity;
+        private readonly List<HistoryItem> historyItems;
 
         public HistoryItemAdapter(Activity activity, List<HistoryItem> historyItems)
         {
@@ -24,15 +24,9 @@ namespace BullsNCowsProject.Components
             return position;
         }
 
-        public override int Count
-        {
-            get { return historyItems.Count; }
-        }
+        public override int Count => historyItems.Count;
 
-        public override HistoryItem this[int position]
-        {
-            get { return historyItems[position]; }
-        }
+        public override HistoryItem this[int position] => historyItems[position];
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
@@ -47,8 +41,8 @@ namespace BullsNCowsProject.Components
             if (renderedHistoryItem != null)
             {
                 tvGuessedNumber.Text = $"{Count-position}. {renderedHistoryItem.GuessedNumber}";
-                tvBullsNumber.Text = $"B={renderedHistoryItem.BullsNumber}";
-                tvCowsNumber.Text = $"C={renderedHistoryItem.CowsNumber}";
+                tvBullsNumber.Text = $"🎯{renderedHistoryItem.BullsNumber}";
+                tvCowsNumber.Text = $"🐮{renderedHistoryItem.CowsNumber}";
 
                 if (renderedHistoryItem.IsEmphasis)
                 {

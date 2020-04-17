@@ -3,16 +3,20 @@ using BullsNCowsProject.Activities;
 using BullsNCowsProject.Dialogs;
 using BullsNCowsEngine.RealUnEngine;
 using BullsNCowsProject.Models;
+using System.Collections.Generic;
+using BullsNCowsProject.Dal;
+using System.Diagnostics;
+using System;
 
 namespace BullsNCowsProject
 {
     public class GameManager
     {
-        
         private Sherlock currentGameEngine; 
         private static GameManager m_this = null;
         private Context gameContext;
         private bool isPlayerTurn;
+        private DateTime gameStartTimeStamp;
 
         // It is highly irregular to use a getInstance() function of a singleton with a parameter for initialization, because you never know who calls this function
         // first, and if they give the initialization parameter or not.
@@ -40,6 +44,7 @@ namespace BullsNCowsProject
         // Set is private because GameManager needs it in order to create the models, get is not - because the activities need access to the models
         public PlayerModel ModelPlayer { get; private set; }
         public ComputerModel ModelComputer { get; private set; }
+        public List<ScoreDto> GameScores => ScoresDal.GetScores();
         
         /**
          * summary: Gets everything needed to start the game prepared. Takes the needed values from the SP file, creates the objects needed 
@@ -51,6 +56,8 @@ namespace BullsNCowsProject
             int digitsCount = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
             int strength = settingsFile.GetInt(Consts.engineStrengthSettingsName, Consts.engineStrengthDefault);
 
+            gameStartTimeStamp = DateTime.Now;
+
             currentGameEngine = new Sherlock(digitsCount, strength);
 
             ModelPlayer = new PlayerModel();
@@ -59,6 +66,18 @@ namespace BullsNCowsProject
             gameContext.StartActivity(typeof(PlayerActivity));
 
             isPlayerTurn = true;
+        }
+
+        public void EndGame(bool isPlayerWin)
+        {
+            var score = new ScoreDto(
+                0,
+                ModelPlayer.playersChosenNumber,
+                currentGameEngine.SecretNumber,
+                isPlayerWin,
+                Math.Floor((double) (DateTime.Now.Ticks - gameStartTimeStamp.Ticks) / 10000));
+
+            ScoresDal.InsertNewScore(score);
         }
 
         public void SetPlayerNumber(string dialogInput)
