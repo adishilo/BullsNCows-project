@@ -9,6 +9,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using BullsNCowsEngine.RealUnEngine;
 using BullsNCowsProject.Components;
@@ -18,6 +19,7 @@ namespace BullsNCowsProject.Activities
     [Activity(Label = "ComputerActivity", ScreenOrientation = ScreenOrientation.Locked)]
     public class ComputerActivity : Activity
     {
+        Animation animationFadeIn;
         TextView tvPlayersNumberDisplay;
         EditText etBulls;
         EditText etCows;
@@ -36,6 +38,8 @@ namespace BullsNCowsProject.Activities
 
             SetContentView(Resource.Layout.activity_computer);
 
+            animationFadeIn = AnimationUtils.LoadAnimation(this, Resource.Animation.animation_fadeIn);
+
             tvPlayersNumberDisplay = FindViewById<TextView>(Resource.Id.tvPlayersNumberDisplay);
             lvComputerGuessesHistory = FindViewById<ListView>(Resource.Id.lvComputerGuessesHistory);
 
@@ -47,6 +51,7 @@ namespace BullsNCowsProject.Activities
             historyItemAdapter = new HistoryItemAdapter(this, GameManager.getInstance().ModelComputer.guessesHistory);
             historyItemAdapter.AddHistoryItem(computersGuessPartial);
             lvComputerGuessesHistory.Adapter = historyItemAdapter;
+            lvComputerGuessesHistory.StartAnimation(animationFadeIn);
 
             etBulls = FindViewById<EditText>(Resource.Id.etBulls);
             etBulls.TextChanged += EtBulls_TextChanged;

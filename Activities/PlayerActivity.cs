@@ -9,6 +9,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using BullsNCowsProject.Components;
 using BullsNCowsProject.Dialogs;
@@ -18,6 +19,7 @@ namespace BullsNCowsProject.Activities
     [Activity(Label = "PlayerActivity", ScreenOrientation = ScreenOrientation.Locked)]
     public class PlayerActivity : Activity
     {
+        Animation animationFadeIn;
         private Button btnAsk;
         private EditText etGuessTypingPlace;
         int numberOfDigits;
@@ -32,6 +34,8 @@ namespace BullsNCowsProject.Activities
 
             var settingsFile = GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
             numberOfDigits = settingsFile.GetInt(Consts.numberOfDigitsSettingsName, Consts.numberOfDigitsDefault);
+
+            animationFadeIn = AnimationUtils.LoadAnimation(this, Resource.Animation.animation_fadeIn);
 
             if (GameManager.getInstance().ModelPlayer.isFirstTurn)
             {
@@ -52,6 +56,7 @@ namespace BullsNCowsProject.Activities
 
             lvGuessesHistory = FindViewById<ListView>(Resource.Id.lvGuessesHistory);
             lvGuessesHistory.Adapter = historyItemAdapter;
+            lvGuessesHistory.StartAnimation(animationFadeIn);
         }
 
         
