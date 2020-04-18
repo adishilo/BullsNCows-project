@@ -39,9 +39,7 @@ namespace BullsNCowsProject.Activities
             btnExit = FindViewById<Button>(Resource.Id.btnExit);
             btnExit.Click += BtnExit_Click;
 
-            Intent serviceIntent = new Intent(this, typeof(MusicService));
-            serviceIntent.PutExtra("setPlayStatus", settingsFile.GetBoolean(Consts.musicMuteSettingsName, settingsFile.GetBoolean(Consts.musicMuteSettingsName, Consts.playMusicDefault)));
-            StartService(serviceIntent);
+            SetMusicPlayback(settingsFile.GetBoolean(Consts.musicMuteSettingsName, settingsFile.GetBoolean(Consts.musicMuteSettingsName, Consts.playMusicDefault)));
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -100,11 +98,16 @@ namespace BullsNCowsProject.Activities
 
         private void ExitGame()
         {
-            Intent serviceIntent = new Intent(this, typeof(MusicService));
-            serviceIntent.PutExtra("setPlayStatus", false);
-            StartService(serviceIntent);
+            SetMusicPlayback(false);
 
             Finish();
+        }
+
+        private void SetMusicPlayback(bool activateMusic)
+        {
+            Intent serviceIntent = new Intent(this, typeof(MusicService));
+            serviceIntent.PutExtra("setPlayStatus", activateMusic);
+            StartService(serviceIntent);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace BullsNCowsProject
 {
 	
 	
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
 	public partial class Resource
 	{
 		
@@ -3736,9 +3736,6 @@ namespace BullsNCowsProject
 			// aapt resource value: 0x7F0800A8
 			public const int smallLabel = 2131230888;
 			
-			// aapt resource value: 0x7F08008D
-			public const int sMute = 2131230861;
-			
 			// aapt resource value: 0x7F0800A9
 			public const int snackbar_action = 2131230889;
 			
@@ -3753,6 +3750,9 @@ namespace BullsNCowsProject
 			
 			// aapt resource value: 0x7F0800AD
 			public const int spacer = 2131230893;
+			
+			// aapt resource value: 0x7F08008D
+			public const int sPlay = 2131230861;
 			
 			// aapt resource value: 0x7F0800AE
 			public const int split_action_bar = 2131230894;

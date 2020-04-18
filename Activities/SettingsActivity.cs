@@ -15,7 +15,7 @@ namespace BullsNCowsProject.Activities
     [Activity(Label = "SettingsActivity")]
     public class SettingsActivity : Activity
     {
-        private Switch sMute;
+        private Switch sPlay;
         private Button btnMainMenu;
         private TextView tvProgressDisplay;
         private RadioButton rbDigits3;
@@ -44,9 +44,9 @@ namespace BullsNCowsProject.Activities
 
             rgDigits = FindViewById<RadioGroup>(Resource.Id.rgDigits);
 
-            sMute = FindViewById<Switch>(Resource.Id.sMute);
-            sMute.Checked = !settingsFile.GetBoolean(Consts.musicMuteSettingsName, Consts.playMusicDefault);
-            sMute.CheckedChange += SMute_CheckedChange;
+            sPlay = FindViewById<Switch>(Resource.Id.sPlay);
+            sPlay.Checked = settingsFile.GetBoolean(Consts.musicMuteSettingsName, Consts.playMusicDefault);
+            sPlay.CheckedChange += SPlay_CheckedChange;
 
             btnMainMenu = FindViewById<Button>(Resource.Id.btnMainMenu);
             btnMainMenu.Click += BtnMainMenu_Click;
@@ -62,7 +62,7 @@ namespace BullsNCowsProject.Activities
             ShowNumOfDigitsSelection();
         }
 
-        private void SMute_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        private void SPlay_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             var editor = settingsFile.Edit();
             editor.PutBoolean(Consts.musicMuteSettingsName, e.IsChecked);
