@@ -36,6 +36,10 @@ namespace BullsNCowsProject.Activities
 
             btnExit = FindViewById<Button>(Resource.Id.btnExit);
             btnExit.Click += BtnExit_Click;
+
+            Intent serviceIntent = new Intent(this, typeof(MusicService));
+            serviceIntent.PutExtra("setPlayStatus", true);
+            StartService(serviceIntent);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -67,9 +71,14 @@ namespace BullsNCowsProject.Activities
             return base.OnOptionsItemSelected(item);
         }
 
+        public override void OnBackPressed()
+        {
+            ExitGame();
+        }
+
         private void BtnExit_Click(object sender, System.EventArgs e)
         {
-            Finish();
+            ExitGame();
         }
 
         private void BtnGameStart_Click(object sender, System.EventArgs e)
@@ -85,6 +94,15 @@ namespace BullsNCowsProject.Activities
         private void BtnInstructions_Click(object sender, System.EventArgs e)
         {
             StartActivity(typeof(InstructionsActivity));
+        }
+
+        private void ExitGame()
+        {
+            Intent serviceIntent = new Intent(this, typeof(MusicService));
+            serviceIntent.PutExtra("setPlayStatus", false);
+            StartService(serviceIntent);
+
+            Finish();
         }
     }
 }

@@ -71,7 +71,7 @@
     <Compile Include="GameManager.cs" />
     <Compile Include="Models\ComputerModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
-    <None Include="MusicService.cs" />
+    <Compile Include="MusicService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dal\ScoresDal.cs" />
@@ -134,12 +134,15 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_scores.xml">
-      <SubType></SubType>
+      <SubType>
+      </SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\item_score.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -196,11 +199,11 @@
       <Name>BullsNCowsEngine</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <AndroidResource Include="Resources\amimations\animation_fadeIn.xml" />
-    <Folder Include="Resources\menu\" />
-    <Folder Include="Dal\" />
+    <AndroidResource Include="Resources\raw\alexander_nakarada_banjos_unite.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\amimations\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
