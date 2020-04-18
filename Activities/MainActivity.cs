@@ -25,6 +25,8 @@ namespace BullsNCowsProject.Activities
 
             gameManager = GameManager.getInstance(this);
 
+            var settingsFile = GetSharedPreferences(Consts.settingsFileName, FileCreationMode.Private);
+
             btnInstructions = FindViewById<Button>(Resource.Id.btnInstructions);
             btnInstructions.Click += BtnInstructions_Click;
 
@@ -38,7 +40,7 @@ namespace BullsNCowsProject.Activities
             btnExit.Click += BtnExit_Click;
 
             Intent serviceIntent = new Intent(this, typeof(MusicService));
-            serviceIntent.PutExtra("setPlayStatus", true);
+            serviceIntent.PutExtra("setPlayStatus", settingsFile.GetBoolean(Consts.musicMuteSettingsName, settingsFile.GetBoolean(Consts.musicMuteSettingsName, Consts.playMusicDefault)));
             StartService(serviceIntent);
         }
 

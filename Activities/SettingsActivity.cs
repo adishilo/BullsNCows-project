@@ -15,6 +15,7 @@ namespace BullsNCowsProject.Activities
     [Activity(Label = "SettingsActivity")]
     public class SettingsActivity : Activity
     {
+        private Switch sMute;
         private Button btnMainMenu;
         private TextView tvProgressDisplay;
         private RadioButton rbDigits3;
@@ -43,6 +44,10 @@ namespace BullsNCowsProject.Activities
 
             rgDigits = FindViewById<RadioGroup>(Resource.Id.rgDigits);
 
+            sMute = FindViewById<Switch>(Resource.Id.sMute);
+            sMute.Checked = !settingsFile.GetBoolean(Consts.musicMuteSettingsName, Consts.playMusicDefault);
+            sMute.CheckedChange += SMute_CheckedChange;
+
             btnMainMenu = FindViewById<Button>(Resource.Id.btnMainMenu);
             btnMainMenu.Click += BtnMainMenu_Click;
 
@@ -55,6 +60,17 @@ namespace BullsNCowsProject.Activities
             tvProgressDisplay.Text = $"{sbDifficulty.Progress}%";
 
             ShowNumOfDigitsSelection();
+        }
+
+        private void SMute_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            var editor = settingsFile.Edit();
+            editor.PutBoolean(Consts.musicMuteSettingsName, e.IsChecked);
+            editor.Commit();
+
+            Intent serviceIntent = new Intent(this, typeof(MusicService));
+            serviceIntent.PutExtra("setPlayStatus", e.IsChecked);
+            StartService(serviceIntent);
         }
 
         private void SbDifficulty_ProgressChanged(object sender, SeekBar.ProgressChangedEventArgs e)
