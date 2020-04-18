@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -14,7 +15,7 @@ using BullsNCowsProject.Components;
 
 namespace BullsNCowsProject.Activities
 {
-    [Activity(Label = "ComputerActivity")]
+    [Activity(Label = "ComputerActivity", ScreenOrientation = ScreenOrientation.Locked)]
     public class ComputerActivity : Activity
     {
         TextView tvPlayersNumberDisplay;

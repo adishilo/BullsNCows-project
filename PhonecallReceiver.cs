@@ -16,10 +16,23 @@ namespace BullsNCowsProject
                 var state = intent.GetStringExtra(TelephonyManager.ExtraState);
                 if (state == TelephonyManager.ExtraStateRinging)
                 {
-                    var number = intent.GetStringExtra(TelephonyManager.ExtraIncomingNumber);
-                    // do something with this number...
+                    SetMusicState(context, false);
+                }
+                else
+                {
+                    if (state == TelephonyManager.ExtraStateIdle)
+                    {
+                        SetMusicState(context, true);
+                    }
                 }
             }
+        }
+
+        private void SetMusicState(Context context, bool activate)
+        {
+            Intent serviceIntent = new Intent(context, typeof(MusicService));
+            serviceIntent.PutExtra("setPlayStatus", activate);
+            context.StartService(serviceIntent);
         }
     }
 }

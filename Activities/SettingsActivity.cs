@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -12,7 +13,7 @@ using Android.Widget;
 
 namespace BullsNCowsProject.Activities
 {
-    [Activity(Label = "SettingsActivity")]
+    [Activity(Label = "SettingsActivity", ScreenOrientation = ScreenOrientation.Locked)]
     public class SettingsActivity : Activity
     {
         private Switch sPlay;

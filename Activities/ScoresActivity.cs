@@ -6,6 +6,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -14,7 +15,7 @@ using BullsNCowsProject.Components;
 
 namespace BullsNCowsProject.Activities
 {
-    [Activity(Label = "Activity")]
+    [Activity(Label = "Activity", ScreenOrientation = ScreenOrientation.Locked)]
     public class ScoresActivity : Activity
     {
         ListView lvGameScores;

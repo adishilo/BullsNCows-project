@@ -12,7 +12,7 @@ using Android.Telephony;
 
 namespace BullsNCowsProject.Activities
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Locked)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true, ScreenOrientation = ScreenOrientation.Locked)]
     public class MainActivity : AppCompatActivity
     {
         private Button btnInstructions;
