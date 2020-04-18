@@ -79,6 +79,7 @@
     <Compile Include="Dal\ScoreDto.cs" />
     <Compile Include="Activities\ScoresActivity.cs" />
     <Compile Include="Components\ScoreItemAdapter.cs" />
+    <Compile Include="PhonecallReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

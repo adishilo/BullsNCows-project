@@ -9,5 +9,6 @@
         public const int numberOfDigitsDefault = 4;
         public const int engineStrengthDefault = 100;
         public const bool playMusicDefault = true;
+        public const int readTelephonyPermissionId = 123;
     }
 }

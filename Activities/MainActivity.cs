@@ -5,6 +5,10 @@ using Android.Runtime;
 using Android.Widget;
 using Android.Content;
 using Android.Views;
+using Android;
+using Android.Support.V4.App;
+using Android.Content.PM;
+using Android.Telephony;
 
 namespace BullsNCowsProject.Activities
 {
@@ -40,6 +44,8 @@ namespace BullsNCowsProject.Activities
             btnExit.Click += BtnExit_Click;
 
             SetMusicPlayback(settingsFile.GetBoolean(Consts.musicMuteSettingsName, settingsFile.GetBoolean(Consts.musicMuteSettingsName, Consts.playMusicDefault)));
+
+            RegisterTelephonyEvents();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -108,6 +114,33 @@ namespace BullsNCowsProject.Activities
             Intent serviceIntent = new Intent(this, typeof(MusicService));
             serviceIntent.PutExtra("setPlayStatus", activateMusic);
             StartService(serviceIntent);
+        }
+
+        private void RegisterTelephonyEvents()
+        {
+            var permissions = new string[]
+            {
+                Manifest.Permission.ReadPhoneState
+            };
+
+            ActivityCompat.RequestPermissions(this, permissions, Consts.readTelephonyPermissionId);
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            if (requestCode == Consts.readTelephonyPermissionId)
+            {
+                if (grantResults.Length > 0 && grantResults[0] == Permission.Granted)
+                {
+                    RegisterReceiver(new PhonecallReceiver(), new IntentFilter(TelephonyManager.ActionPhoneStateChanged));
+                }
+                else
+                {
+                    ExitGame();
+                }
+            }
         }
     }
 }
