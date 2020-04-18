@@ -16,6 +16,8 @@ namespace BullsNCowsProject.Components
         {
             this.activity = activity;
             this.scores = scores;
+
+            this.scores.Reverse();
         }
 
         public override long GetItemId(int position)

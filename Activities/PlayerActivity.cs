@@ -99,12 +99,19 @@ namespace BullsNCowsProject.Activities
                 etGuessTypingPlace.Text = "";
 
                 AlertDialog.Builder guessResultDialogbuilder = new AlertDialog.Builder(this);
-                guessResultDialogbuilder.SetTitle("Result");
-                guessResultDialogbuilder.SetMessage($"You've got {confirmedGuessEvaluation.Bulls} Bulls and {confirmedGuessEvaluation.Cows} Cows for your guess");
+
+                guessResultDialogbuilder.SetTitle("Score");
+                guessResultDialogbuilder.SetMessage($"    {confirmedGuessEvaluation.Bulls}🎯\n    {confirmedGuessEvaluation.Cows}🐮");
                 guessResultDialogbuilder.SetCancelable(false);
                 guessResultDialogbuilder.SetPositiveButton("Continue", ContinueToComputerScreen);
+
                 AlertDialog guessResultDialog = guessResultDialogbuilder.Create();
+
                 guessResultDialog.Show();
+
+                TextView tvAlertMessage = guessResultDialog.FindViewById<TextView>(Android.Resource.Id.Message);
+
+                tvAlertMessage.SetTextSize(Android.Util.ComplexUnitType.Dip, 20);
             }
         }
 
